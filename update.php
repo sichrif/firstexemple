@@ -11,9 +11,15 @@
     include 'dbconnexion.php';
     include 'edit.php';
 
-    $update = $bdd->query("UPDATE students SET firstname =' $mfirstname', lastname = '$mlastname' , email = '$memail' WHERE students.id = '$idd'");
+    $update = $bdd->prepare("UPDATE students SET firstname=:param_firstname,lastname=:param_lastname,email=:param_email,phone=:param_phone where id=:param_id");
     
-
+    $reponse->bindParam(':param_firstname',$mfirstname);
+    $reponse->bindParam(':param_lastname',$mlastname);
+    $reponse->bindParam(':param_email',$memail);
+    $reponse->bindParam(':param_phone',$mphone);
+    $reponse->bindParam(':param_id',$idd);
+    $reponse->execute(); 
+     header("location:index.php");
 
 
         ?>

@@ -21,15 +21,15 @@
          <input type="submit" value="Modifier">
      </form>
     
-<?php
-       if (!empty($_POST)) {
-        $idd = $_POST['idd'];
-        $mfirstname = $_POST['firstname'];
-        $mlastname = $_POST['lastname'];
-        $memail = $_POST['email'];
-        $mphone = $_POST['phone'];
-    }
-?>
+  <?php
+        if (!empty($_POST)) {
+          $idd = $_POST['idd'];
+          $mfirstname = $_POST['firstname'];
+          $mlastname = $_POST['lastname'];
+          $memail = $_POST['email'];
+          $mphone = $_POST['phone'];
+      }
+  ?>
 
 </body>
 </html>
