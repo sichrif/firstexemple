@@ -36,7 +36,8 @@
 
 <?php
     include 'dbconnexion.php';
-    $reponse = $bdd->query('SELECT * FROM students');
+    $reponse = $cnx->prepare('SELECT * FROM students');
+    $reponse->execute();
 while ($donnees = $reponse->fetch())
 {
     echo '<tr><td>'.$donnees['id'] . '</td>';
@@ -46,7 +47,7 @@ while ($donnees = $reponse->fetch())
     echo '<td>'.$donnees['phone'] . '</td>';
     echo '<td> <a href="edit.php"><button type="button" class="btn btn-primary"> edit</button></a> &nbsp;';
 
-    echo '<a href="delete.php?id=<?echo $donnees[id];"><button type="button" class="btn btn-primary">delete</button></a></td></tr>';
+    echo '<a href="delete.php?id='. $donnees['id'].'" ><button type="button" class="btn btn-primary">delete</button></a></td></tr>';
 }
 
 ?>
