@@ -4,32 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
-    
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form action="update.php" method="post" accept-charset="utf-8">
-        <label>Id<input type="text" name="idd"></label><br>
-        <label>firstname<input type="text" name="firstname"></label><br>
-         <label>lastname<input type="text" name="lastname"></label><br>
-         <label>email<input type="text" name="email"></label><br>
-         <label>phone<input type="number"name="phone" value=""></label><br>
-         <input type="submit" value="Modifier">
-     </form>
-    
 <?php
-       if (!empty($_POST)) {
-        $idd = $_POST['idd'];
-        $mfirstname = $_POST['firstname'];
-        $mlastname = $_POST['lastname'];
-        $memail = $_POST['email'];
-        $mphone = $_POST['phone'];
-    }
+include 'classes/client.class.php';
+$db=new dbconnection;
+$cnnx=$db->connecta();
+$reponse=$cnnx->prepare('SELECT * FROM students WHERE id =:param_id');
+ $reponse->bindParam(':param_id', $_GET['id']); 
+ $reponse->execute();  
+ $donnees = $reponse->fetch();
 ?>
 
+<div class="container">
+<h3>Editer étudiant</h3>
+<form method="POST" action="update.php">
+<div class="form-group">
+    <input type="number" class="form-control" name="id" value="<?php echo $donnees['id']?>"hidden>
+  </div>
+  <div class="form-group row">
+    <div class="col-xs-4">
+    <label>First Name</label>
+    <input type="text" class="form-control" name="firstname" value="<?php echo $donnees['firstname']?>">
+    </div>&nbsp; &nbsp;
+    <div class="col-xs-4">
+    <label>Last Name</label>
+    <input type="text" class="form-control" name="lastname" value="<?php echo $donnees['lastname']?>">
+    </div>
+</div>
+  <div class="form-group row">
+    <div class="col-xs-4">
+    <label>Email</label>
+    <input type="email" class="form-control" name="email" value="<?php echo $donnees['email']?>">
+    </div>&nbsp; &nbsp;
+    <div class="col-xs-4">
+    <label>Phone</label>
+    <input type="number" class="form-control" name="phone" value="<?php echo $donnees['phone']?>">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">enregistrer</button>
+  <button class="btn  btn-secondary">Annuler</button>
+</form>
+</div>
 </body>
 </html>

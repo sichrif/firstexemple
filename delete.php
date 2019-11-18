@@ -1,4 +1,6 @@
 <?php
-include 'dbconnexion.php';
-$delete = $bdd->query("DELETE FROM students  WHERE students.id =id");
-?>
+require 'classes/client.class.php';
+$id=$_GET['id'];
+$kk = new client;
+$ll=$kk->delete($id);
+header('location:mgrclients.php');
